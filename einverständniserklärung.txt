@@ -1,0 +1,25 @@
+
+<script data-main="index" src="./require.js"></script>
+Einverständniserklärung
+Hiermit willige ich ein, an dem Experiment „Unterschiedliche Arten von mentalen
+Rotationsaufgaben“ teilzunehmen.
+Ich wurde für mich ausreichend über Ziele und Ablauf des Experiments informiert.
+Ich erkläre mich damit einverstanden, dass im Rahmen dieser Studie personenbezogene
+Daten/Angaben die mich betreffen verschlüsselt
+erhoben (pseudonymisiert), auf elektronischen Datenträgern aufgezeichnet und weiterverarbeitet
+werden. Ich bin auch damit einverstanden,
+dass die Studienergebnisse in nicht rückentschlüsselbarer (anonymer) Form, die keinen Rückschluss
+auf mich zulassen, veröffentlicht werden.
+Folgende Daten werden erhoben:
+Die Leistung bei mentalen Rotationsaufgaben
+Allgemeine demographische Daten: Alter, Geschlecht, Studiengang, Vorerfahrung mit mentaler
+Rotation
+Nur für die Teilnahme am Gewinnspiel bzw. zum Erhalt von Versuchspersonenstunden (optional): EMail-Adresse
+Mir ist bekannt, dass ich meine Einwilligung jederzeit ohne Angaben von Gründen und ohne
+nachteilige Folgen für mich zurückziehen kann.
+Das Experiment kann jederzeit abgebrochen werden. Dazu reicht es, das Browserfenster zu
+schließen.
+Insbesondere ist mir auch bekannt, dass ich bei berechtigten Gründen (z. B. Zuwiderhandlung gegen
+die Teilnahmebedingungen, Antworten zeigen
+keinen ernsthaften Teilnahmeversuch) vom Gewinnspiel und dem Erhalt von
+Versuchspersonenstunden ausgeschlossen werden kann.

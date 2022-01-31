@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Experiment</title>
+
+    <script src="jspsych/jspsych.js"> </script>
+    <script src="jspsych/plugin-html-keyboard-response.js"></script>
+    <script src="jspsych/plugin-html-button-response.js"></script>
+    <script src = "jspsych/plugin-instructions.js"></script>
+    <script src="jspsych/plugin-video-keyboard-response.js"></script>
+    <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
+<style>
+    .button{
+        /*Change the width as much as you like, but make sure
+      display: inline-block;
+      padding: 15px 25px;
+      font-size: 24px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      outline: none;
+      color: #fff;
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 9px #999
+    }
+    .button:hover {background-color: #3e8e41}
+
+    .button:active {
+      background-color: #3e8e41;
+      box-shadow: 0 5px #666;
+      transform: translateY(4px);
+    }
+</style>
+</head>
+<body>
+
+</body>
+<script>
+    function shuffle(array) {
+          let currentIndex = array.length,  randomIndex;
+
+          // While there remain elements to shuffle...
+          while (currentIndex != 0) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+
+            // And swap it with the current element.
+            [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+                }
+        return array;
+    }
+
+    function saveData(name, data_in){
+        var url = 'save_data.php';
+        var data_to_send = {filename: name, filedata: data_in};
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data_to_send),
+            headers: new Headers({
+                    'Content-Type': 'application/json'
+            })
+        });
+    }
+
+    const jsPsych = initJsPsych();
+    var videos = [
+        "https://tuc.cloud/index.php/s/5iMESADZo9NTepN?dir=undefined&path=%2FBigCar&openfile=39852277",
+        "https://tuc.cloud/index.php/s/5iMESADZo9NTepN?dir=undefined&path=%2FBigCar&openfile=39852304",
+        "https://tuc.cloud/index.php/s/5iMESADZo9NTepN?dir=undefined&path=%2FBigCar&openfile=39852274",
+        "https://tuc.cloud/index.php/s/5iMESADZo9NTepN?dir=undefined&path=%2FBigCar&openfile=39852297",
+
+        "https://tuc.cloud/index.php/s/5iMESADZo9NTepN?dir=undefined&path=%2FBigCar&openfile=39852277",
+        "https://tuc.cloud/index.php/s/5iMESADZo9NTepN?dir=undefined&path=%2FBigCar&openfile=39852304",
+        "https://tuc.cloud/index.php/s/5iMESADZo9NTepN?dir=undefined&path=%2FBigCar&openfile=39852274",
+        "https://tuc.cloud/index.php/s/5iMESADZo9NTepN?dir=undefined&path=%2FBigCar&openfile=39852297",
+    ];
+    var videos = [
+        "videos/big_nobrake_fast.mp4",
+        "videos/big_nobrake_slow.mp4",
+        "videos/big_strongbrake_fast.mp4",
+        "videos/big_strongbrake_slow.mp4",
+
+        "videos/big_nobrake_fast.mp4",
+        "videos/big_nobrake_slow.mp4",
+        "videos/big_strongbrake_fast.mp4",
+        "videos/big_strongbrake_slow.mp4"
+    ];
+    shuffle(videos);
+    //console.log(videos);
+    var timeline = [];
+    const seite_1 = '<p style="font-size:20px;" "text-align:center" >Danke, dass Sie an diesem Experiment teilnehmen. In diesem Experiment werden... <br> Bitte denken Sie daran, Ihr Handy bei Seite zu legen, um nicht abgelenkt zu werden. <br> Um fortzufahren, klicken Sie auf Weiter </p>';
+    const seite_2 = '<p style="font-size:20px;" "text-align:center">Einverständniserklärung <br> Hiermit willige ich ein, an dem Experiment „...“ teilzunehmen. <br> Um fortzufahren, klicken Sie auf Weiter</p>';
+    const seite_3 = '<p style="font-size:20px;" "text-align:center" > Sie werden nun eine Serie von Videos ... Ihre Aufgabe nach dieser Serie wird es sein, Fragen zum ... , und ... Unter der Frage, die nach der Präsentation der Bilder erscheint, wird angegeben sein, welche Tasten Sie zur Beantwortung der Fragen drücken müssen. Wichtig: Lassen Sie sich so viel Zeit zur Beantwortung der Frage, wie Sie benötigen. Es folgt eine Übungsrunde. <br> Um fortzufahren, klicken Sie auf Weiter</p>'
+    const seite_4 = '<p style="font-size:20px;" "text-align:center" > Machen Sie sich bereit für die Übungsrunde. <br> Um fortzufahren, klicken Sie auf Weiter</p>'
+
+    var seite_0  = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: '',
+        choices: "Start",
+        trial_duration: 2000
+        }
+    var trials = {
+        type: jsPsychInstructions,
+        pages: [
+        seite_1, seite_2, seite_3, seite_4
+        ],
+        key_forward: "Weiter",
+        allow_backward: false,
+        allow_keys: true,
+        button_label_next: "Weiter",
+        show_clickable_nav: true
+        }
+
+    var fixation = {
+        type:jsPsychHtmlKeyboardResponse,
+        stimulus: '<p style="font-size:200px;" "text-align:center" >+</p>',
+        trial_duration: 1500,
+        response_ends_trial: false
+        }
+
+    timeline.push(seite_0);
+    timeline.push(trials);
+    timeline.push(fixation);
+    for (var video of videos){
+        console.log(video);
+        var video_trial = {
+            type: jsPsychVideoKeyboardResponse,
+            stimulus: [video],
+            width:600,
+            height:400,
+            autoplay:true,
+            choices:[ 'b','n'],
+            response_allowed_while_playing:true,
+            trial_ends_after_video: false
+        };
+        timeline.push(video_trial);
+        timeline.push(fixation);
+    }
+    var experiment_data = jsPsych.data.get();
+    console.log(experiment_data);
+    jsPsych.run(timeline);
+</script>
+</html>

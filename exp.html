@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My experiment</title>
+    <script src="https://unpkg.com/jspsych@7.1.2"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.0"></script>
+    <link href="https://unpkg.com/jspsych@7.1.2/css/jspsych.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body></body>
+  <script>
+    const jsPsych = initJsPsych();
+    var timeline = [];
+    const seite_1_willkommen= {
+        type:  jsPsychHtmlButtonResponse,
+        stimulus: '<p style="font-size:20px;" "text-align:center" >Danke, dass Sie an diesem Experiment teilnehmen. In diesem Experiment werden... <br> Bitte denken Sie daran, Ihr Handy bei Seite zu legen, um nicht abgelenkt zu werden. <br> Um fortzufahren, klicken Sie auf Weiter </p>',
+        button_html: '<button type= "button" class="jspsych-btn" background-color: #e7e7e7; color: black;>Weiter</button>',
+        choices: ["Weiter"]
+        }
+    //const fs = require(['fs']);
+    const seite_2_ee = {
+        type: jsPsychHtmlButtonResponse,
+        stimulus: '<p style="font-size:20px;" "text-align:center">Einverständniserklärung <br> Hiermit willige ich ein, an dem Experiment „...“ teilzunehmen. <br> Um fortzufahren, klicken Sie auf Weiter</p>',
+        button_html: '<button class="jspsych-btn">Weiter</button>',
+        choices: ["Weiter"]
+    }
+    const seite_3_instruction = {
+        type: jsPsychHtmlButtonResponse,
+        stimulus: '<p style="font-size:20px;" "text-align:center" > Sie werden nun eine Serie von Videos ... Ihre Aufgabe nach dieser Serie wird es sein, Fragen zum ... , und ... Unter der Frage, die nach der Präsentation der Bilder erscheint, wird angegeben sein, welche Tasten Sie zur Beantwortung der Fragen drücken müssen. Wichtig: Lassen Sie sich so viel Zeit zur Beantwortung der Frage, wie Sie benötigen. Es folgt eine Übungsrunde. <br> Um fortzufahren, klicken Sie auf Weiter</p>',
+        button_html: '<button class="jspsych-btn">Weiter</button>',
+        choices: ["Weiter"]
+    }
+
+    const seite_4_instr_übung = {
+        type: jsPsychHtmlButtonResponse,
+        stimulus: '<p style="font-size:20px;" "text-align:center" > Machen Sie sich bereit für die Übungsrunde. <br> Um fortzufahren, klicken Sie auf Weiter</p>',
+        button_html: '<button class="jspsych-btn">Weiter</button>',
+        choices: ["Weiter"]
+    }
+    //var all_data = jsPsych.data.get();
+    //timeline.push(seite_1_willkommen);
+    //timeline.push(seite_2_ee);
+    //timeline.push(seite_3_instruction);
+
+    const print_instruction = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: "Herzlich Willkommen...
+
+      Press any key to begin."
+    }
+
+    timeline.push(print_instruction);
+    jsPsych.run(timeline);
+  </script>
+</html>
