@@ -68,17 +68,7 @@
     }
 
     const jsPsych = initJsPsych();
-    var videos = [
-        "https://tuc.cloud/index.php/s/5iMESADZo9NTepN?dir=undefined&path=%2FBigCar&openfile=39852277",
-        "https://tuc.cloud/index.php/s/5iMESADZo9NTepN?dir=undefined&path=%2FBigCar&openfile=39852304",
-        "https://tuc.cloud/index.php/s/5iMESADZo9NTepN?dir=undefined&path=%2FBigCar&openfile=39852274",
-        "https://tuc.cloud/index.php/s/5iMESADZo9NTepN?dir=undefined&path=%2FBigCar&openfile=39852297",
 
-        "https://tuc.cloud/index.php/s/5iMESADZo9NTepN?dir=undefined&path=%2FBigCar&openfile=39852277",
-        "https://tuc.cloud/index.php/s/5iMESADZo9NTepN?dir=undefined&path=%2FBigCar&openfile=39852304",
-        "https://tuc.cloud/index.php/s/5iMESADZo9NTepN?dir=undefined&path=%2FBigCar&openfile=39852274",
-        "https://tuc.cloud/index.php/s/5iMESADZo9NTepN?dir=undefined&path=%2FBigCar&openfile=39852297",
-    ];
     var videos = [
         "videos/big_nobrake_fast.mp4",
         "videos/big_nobrake_slow.mp4",
@@ -90,6 +80,13 @@
         "videos/big_strongbrake_fast.mp4",
         "videos/big_strongbrake_slow.mp4"
     ];
+    var videos_exp = []
+    function fillArray(value, len) {
+        for (var i = 0; i < len; i++) {
+            videos_exp.push(value);
+        }
+        return videos_exp;
+    }
     shuffle(videos);
     //console.log(videos);
     var timeline = [];
@@ -97,6 +94,9 @@
     const seite_2 = '<p style="font-size:20px;" "text-align:center">Einverständniserklärung <br> Hiermit willige ich ein, an dem Experiment „...“ teilzunehmen. <br> Um fortzufahren, klicken Sie auf Weiter</p>';
     const seite_3 = '<p style="font-size:20px;" "text-align:center" > Sie werden nun eine Serie von Videos ... Ihre Aufgabe nach dieser Serie wird es sein, Fragen zum ... , und ... Unter der Frage, die nach der Präsentation der Bilder erscheint, wird angegeben sein, welche Tasten Sie zur Beantwortung der Fragen drücken müssen. Wichtig: Lassen Sie sich so viel Zeit zur Beantwortung der Frage, wie Sie benötigen. Es folgt eine Übungsrunde. <br> Um fortzufahren, klicken Sie auf Weiter</p>'
     const seite_4 = '<p style="font-size:20px;" "text-align:center" > Machen Sie sich bereit für die Übungsrunde. <br> Um fortzufahren, klicken Sie auf Weiter</p>'
+    const seite_5 = '<p style="font-size:20px;" "text-align:center" > Machen Sie sich bereit für die Übungsrunde. <br> Um fortzufahren, klicken Sie auf Weiter</p>'
+    const seite_6 = '<p style="font-size:20px;" "text-align:center" > Geschafft! das Experiment ist nun beendet. <br> Vielen Dank für Ihre Teilnahme. <br> Melden Sie sich beim Versuchsleiter</p>'
+
 
     var seite_0  = {
         type: jsPsychHtmlKeyboardResponse,
@@ -118,8 +118,8 @@
 
     var fixation = {
         type:jsPsychHtmlKeyboardResponse,
-        stimulus: '<p style="font-size:200px;" "text-align:center" >+</p>',
-        trial_duration: 1500,
+        stimulus: '<p style="font-size:50px;" "text-align:center" >+</p>',
+        trial_duration: 800,
         response_ends_trial: false
         }
 
@@ -131,8 +131,8 @@
         var video_trial = {
             type: jsPsychVideoKeyboardResponse,
             stimulus: [video],
-            width:600,
-            height:400,
+            width:1000,
+            height:700,
             autoplay:true,
             choices:[ 'b','n'],
             response_allowed_while_playing:true,
@@ -141,8 +141,48 @@
         timeline.push(video_trial);
         timeline.push(fixation);
     }
+    var instruction =  {
+        type: jsPsychInstructions,
+        pages: [
+        seite_5  ],
+        key_forward: "Weiter",
+        allow_backward: false,
+        allow_keys: true,
+        button_label_next: "Weiter",
+        show_clickable_nav: true
+        }
+    timeline.push(instruction);
+
+
+    fillArray("videos/big_nobrake_fast.mp4",40);
+    fillArray( "videos/big_nobrake_slow.mp4",40);
+    fillArray("videos/big_strongbrake_fast.mp4",40);
+    fillArray("videos/big_strongbrake_slow.mp4",40);
+    console.log(videos_exp.length);
+    shuffle(videos_exp);
+    for (var video of videos_exp){
+        console.log(video);
+        var video_trials = {
+            type: jsPsychVideoKeyboardResponse,
+            stimulus: [video],
+            width:1000,
+            height:700,
+            autoplay:true,
+            choices:[ 'b','n'],
+            response_allowed_while_playing:true,
+            trial_ends_after_video: false
+        };
+        timeline.push(video_trials);
+        timeline.push(fixation);
+    }
+    var thanks = {
+        type: jsPsychInstructions,
+        pages: [seite_6],
+            }
+
     var experiment_data = jsPsych.data.get();
     console.log(experiment_data);
+    timeline.push(thanks);
     jsPsych.run(timeline);
 </script>
 </html>
